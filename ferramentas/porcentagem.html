@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de Porcentagem Online Grátis | Utilix</title>
+  <meta name="description" content="Calcule porcentagem online: desconto, aumento e porcentagem de um valor. Simples, rápido e grátis.">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<header>
+  <h1>Utilix</h1>
+  <p>Ferramentas Online Simples e Gratuitas</p>
+</header>
+
+<div class="container">
+
+  <div class="breadcrumb">
+    <a href="/">← Voltar para a Home</a>
+  </div>
+
+  <div class="card">
+    <h2 class="page-title">Calculadora de Porcentagem</h2>
+    <p class="lead">
+      Use esta calculadora para descobrir rapidamente quanto é <b>X%</b> de um valor.
+      Ideal para desconto, aumento e cálculo do dia a dia.
+    </p>
+
+    <div class="form">
+      <input type="number" id="valor" placeholder="Valor (ex: 240)" inputmode="decimal">
+      <input type="number" id="percentual" placeholder="Porcentagem (ex: 15)" inputmode="decimal">
+      <button onclick="calcular()">Calcular</button>
+    </div>
+
+    <div class="result" id="resultado">Preencha os campos e clique em “Calcular”.</div>
+
+    <p class="small" style="margin-top:14px;">
+      <b>Exemplo:</b> 15% de 240 = 36.<br>
+      Fórmula: <i>(valor × percentual) ÷ 100</i>
+    </p>
+
+    <hr style="border:none;border-top:1px solid #e5e7eb;margin:18px 0;">
+
+    <h3>Perguntas frequentes</h3>
+    <p class="small">
+      <b>Como calcular desconto?</b><br>
+      Calcule X% do valor e subtraia do total. Ex.: desconto de 10% em 200 → 200 - 20 = 180.
+    </p>
+    <p class="small">
+      <b>Como calcular aumento?</b><br>
+      Calcule X% do valor e some ao total. Ex.: aumento de 10% em 200 → 200 + 20 = 220.
+    </p>
+
+  </div>
+</div>
+
+<footer>
+  © 2026 Utilix
+</footer>
+
+<script>
+function calcular() {
+  const valor = parseFloat(document.getElementById("valor").value);
+  const percentual = parseFloat(document.getElementById("percentual").value);
+  const el = document.getElementById("resultado");
+
+  if (Number.isNaN(valor) || Number.isNaN(percentual)) {
+    el.textContent = "Preencha os campos corretamente (valor e porcentagem).";
+    return;
+  }
+
+  const r = (valor * percentual) / 100;
+  el.textContent = `${percentual}% de ${valor} é ${r.toFixed(2)}.`;
+}
+</script>
+
+</body>
+</html>
