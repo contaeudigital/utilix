@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de Juros Compostos Online Grátis | Utilix</title>
+  <meta name="description" content="Calcule juros compostos online: valor inicial, aporte mensal, taxa e tempo. Veja montante final e juros totais. Simples e grátis.">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<header>
+  <h1>Utilix</h1>
+  <p>Ferramentas Online Simples e Gratuitas</p>
+</header>
+
+<div class="container">
+
+  <div class="breadcrumb">
+    <a href="/">← Voltar para a Home</a>
+  </div>
+
+  <div class="card">
+    <h2 class="page-title">Calculadora de Juros Compostos</h2>
+    <p class="lead">
+      Calcule o crescimento do seu dinheiro com <b>juros compostos</b> (juros sobre juros).
+      Informe o valor inicial, aportes mensais, taxa e tempo.
+    </p>
+
+    <div class="form">
+      <input type="number" id="principal" placeholder="Valor inicial (R$) - ex: 1000" inputmode="decimal">
+      <input type="number" id="aporte" placeholder="Aporte mensal (R$) - ex: 200 (opcional)" inputmode="decimal">
+      <input type="number" id="taxa" placeholder="Taxa (% ao mês) - ex: 1.2" inputmode="decimal">
+      <input type="number" id="meses" placeholder="Tempo (meses) - ex: 24" inputmode="numeric">
+      <button onclick="calcular()">Calcular</button>
+    </div>
+
+    <div class="result" id="resultado">Preencha os campos e clique em “Calcular”.</div>
+
+    <p class="small" style="margin-top:14px;">
+      <b>Observação:</b> esta calculadora usa taxa <b>ao mês</b>. Se você tiver taxa anual, depois a gente adiciona um conversor (taxa anual → mensal).
+    </p>
+
+    <hr style="border:none;border-top:1px solid #e5e7eb;margin:18px 0;">
+
+    <h3>Perguntas frequentes</h3>
+    <p class="small">
+      <b>O que são juros compostos?</b><br>
+      É quando os juros são calculados sobre o valor inicial <b>e</b> sobre os juros acumulados (juros sobre juros).
+    </p>
+    <p class="small">
+      <b>Qual a fórmula de juros compostos?</b><br>
+      Sem aporte: <i>M = P × (1 + i)^n</i><br>
+      Com aporte mensal: soma do valor inicial capitalizado + aportes capitalizados mês a mês.
+    </p>
+    <p class="small">
+      <b>Taxa ao mês ou ao ano?</b><br>
+      Aqui usamos taxa ao mês. Se sua taxa for anual, uma aproximação comum é dividir por 12, mas o ideal é converter corretamente (a gente pode adicionar isso já já).
+    </p>
+
+  </div>
+</div>
+
+<footer>
+  © 2026 Utilix
+</footer>
+
+<script>
+function brl(n){
+  return n.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+}
+
+function calcular() {
+  const P = parseFloat(document.getElementById("principal").value);
+  const A = parseFloat(document.getElementById("aporte").value || "0");
+  const taxaPerc = parseFloat(document.getElementById("taxa").value);
+  const n = parseInt(document.getElementById("meses").value, 10);
+  const el = document.getElementById("resultado");
+
+  if (Number.isNaN(P) || Number.isNaN(taxaPerc) || Number.isNaN(n) || n <= 0) {
+    el.textContent = "Preencha corretamente: valor inicial, taxa (% ao mês) e tempo (meses).";
+    return;
+  }
+
+  const i = taxaPerc / 100;
+
+  // Montante do principal (sem aportes)
+  const montantePrincipal = P * Math.pow(1 + i, n);
+
+  // Montante dos aportes mensais (anuidade postecipada: aporte no fim do mês)
+  let montanteAportes = 0;
+  if (A > 0) {
+    // Fórmula: A * [((1+i)^n - 1) / i]
+    // (assumindo aporte no fim de cada mês)
+    montanteAportes = A * ((Math.pow(1 + i, n) - 1) / i);
+  }
+
+  const montanteFinal = montantePrincipal + montanteAportes;
+  const totalInvestido = P + (A * n);
+  const jurosTotais = montanteFinal - totalInvestido;
+
+  el.innerHTML =
+    `<div><b>Montante final:</b> ${brl(montanteFinal)}</div>` +
+    `<div><b>Total investido:</b> ${brl(totalInvestido)}</div>` +
+    `<div><b>Juros ganhos:</b> ${brl(jurosTotais)}</div>`;
+}
+</script>
+
+</body>
+</html>
