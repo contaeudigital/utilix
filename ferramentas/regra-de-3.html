@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Regra de 3 Online Grátis | Calculadora de Proporção | Utilix</title>
+  <meta name="description" content="Calculadora de regra de 3 simples online. Descubra o valor X rapidamente com proporção. Grátis, fácil e direto.">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<header>
+  <h1>Utilix</h1>
+  <p>Ferramentas Online Simples e Gratuitas</p>
+</header>
+
+<div class="container">
+
+  <div class="breadcrumb">
+    <a href="/">← Voltar para a Home</a>
+  </div>
+
+  <div class="card">
+    <h2 class="page-title">Regra de 3 (Simples)</h2>
+    <p class="lead">
+      Use a regra de 3 para calcular <b>X</b> em uma proporção. Preencha os valores e deixe <b>um</b> campo como X.
+      Exemplo: se <b>2</b> custam <b>10</b>, quanto custam <b>5</b>? (2 → 10 / 5 → X)
+    </p>
+
+    <div class="form">
+      <input type="number" id="a" placeholder="A (ex: 2)" inputmode="decimal">
+      <input type="number" id="b" placeholder="B (ex: 10)" inputmode="decimal">
+      <input type="number" id="c" placeholder="C (ex: 5)" inputmode="decimal">
+      <input type="text" id="x" placeholder="X (deixe vazio para calcular)" inputmode="decimal">
+      <button onclick="calcular()">Calcular</button>
+      <button onclick="limpar()" style="background:#374151;">Limpar</button>
+    </div>
+
+    <div class="result" id="resultado">Preencha A, B, C e deixe X vazio para calcular.</div>
+
+    <p class="small" style="margin-top:14px;">
+      <b>Fórmula:</b> A : B = C : X → <i>X = (B × C) ÷ A</i><br>
+      (Se você deixar outro campo vazio, também calculamos automaticamente.)
+    </p>
+
+    <hr style="border:none;border-top:1px solid #e5e7eb;margin:18px 0;">
+
+    <h3>Perguntas frequentes</h3>
+    <p class="small">
+      <b>Quando usar regra de 3?</b><br>
+      Quando duas grandezas são proporcionais e você quer descobrir um valor desconhecido usando a relação entre elas.
+    </p>
+    <p class="small">
+      <b>Regra de 3 simples vs composta</b><br>
+      Aqui é a <b>simples</b> (duas grandezas). A composta envolve mais grandezas (podemos adicionar depois).
+    </p>
+  </div>
+</div>
+
+<footer>
+  © 2026 Utilix
+</footer>
+
+<script>
+function num(v){
+  // aceita vírgula ou ponto
+  if (v === null || v === undefined) return NaN;
+  const s = String(v).trim().replace(',', '.');
+  if (s === '') return NaN;
+  return parseFloat(s);
+}
+
+function setVal(id, value){
+  document.getElementById(id).value = value;
+}
+
+function calcular() {
+  const aRaw = document.getElementById("a").value;
+  const bRaw = document.getElementById("b").value;
+  const cRaw = document.getElementById("c").value;
+  const xRaw = document.getElementById("x").value;
+
+  const a = num(aRaw);
+  const b = num(bRaw);
+  const c = num(cRaw);
+  const x = num(xRaw);
+
+  const el = document.getElementById("resultado");
+
+  // Contar quantos estão vazios/NaN
+  const vals = { a, b, c, x };
+  const missing = Object.entries(vals).filter(([k,v]) => Number.isNaN(v)).map(([k]) => k);
+
+  if (missing.length !== 1) {
+    el.textContent = "Deixe apenas 1 campo vazio (X, ou A, ou B, ou C) para calcular automaticamente.";
+    return;
+  }
+
+  const m = missing[0];
+
+  // Regra: a : b = c : x  ->  a*x = b*c
+  // então:
+  // x = (b*c)/a
+  // a = (b*c)/x
+  // b = (a*x)/c
+  // c = (a*x)/b
+
+  let result;
+
+  try{
+    if (m === 'x') {
+      if (a === 0) throw new Error("A não pode ser 0.");
+      result = (b * c) / a;
+      setVal('x', result.toFixed(6).replace('.', ','));
+      el.innerHTML = `<b>Resultado:</b> X = ${(result).toFixed(6)}<br><span class="small">Cálculo: X = (B × C) ÷ A</span>`;
+    } else if (m === 'a') {
+      if (x === 0) throw new Error("X não pode ser 0.");
+      result = (b * c) / x;
+      setVal('a', result.toFixed(6).replace('.', ','));
+      el.innerHTML = `<b>Resultado:</b> A = ${(result).toFixed(6)}<br><span class="small">Cálculo: A = (B × C) ÷ X</span>`;
+    } else if (m === 'b') {
+      if (c === 0) throw new Error("C não pode ser 0.");
+      result = (a * x) / c;
+      setVal('b', result.toFixed(6).replace('.', ','));
+      el.innerHTML = `<b>Resultado:</b> B = ${(result).toFixed(6)}<br><span class="small">Cálculo: B = (A × X) ÷ C</span>`;
+    } else if (m === 'c') {
+      if (b === 0) throw new Error("B não pode ser 0.");
+      result = (a * x) / b;
+      setVal('c', result.toFixed(6).replace('.', ','));
+      el.innerHTML = `<b>Resultado:</b> C = ${(result).toFixed(6)}<br><span class="small">Cálculo: C = (A × X) ÷ B</span>`;
+    }
+  } catch(e){
+    el.textContent = e.message || "Erro no cálculo.";
+  }
+}
+
+function limpar(){
+  setVal('a','');
+  setVal('b','');
+  setVal('c','');
+  setVal('x','');
+  document.getElementById("resultado").textContent = "Preencha A, B, C e deixe X vazio para calcular.";
+}
+</script>
+
+</body>
+</html>
