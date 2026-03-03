@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>kg para libra (lb) - Conversor Online Rápido | Utilix</title>
+  <meta name="description" content="Converta kg para libra (lb) online. Conversão rápida e automática, com fórmula explicada e tabela de referência.">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<header>
+  <h1>Utilix</h1>
+  <p>Ferramentas Online Simples e Gratuitas</p>
+</header>
+
+<div class="container">
+
+  <div class="breadcrumb">
+    <a href="/">Home</a> ›
+    <a href="/ferramentas/conversor.html">Conversores</a>
+  </div>
+
+  <div class="card">
+    <h2 class="page-title">Conversor de kg para Libra (lb)</h2>
+
+    <p class="lead">
+      Converta <b>quilogramas (kg)</b> para <b>libras (lb)</b> de forma rápida.
+      Digite o valor em kg e veja o resultado automaticamente.
+    </p>
+
+    <div class="form">
+      <input type="text" id="kg" placeholder="Digite o valor em kg (ex: 10,5)" inputmode="decimal" oninput="converter()">
+      <div class="result" id="resultado">Digite um valor para ver a conversão.</div>
+    </div>
+
+    <p class="small" style="margin-top:14px;">
+      <b>Fórmula:</b> lb = kg × 2,20462<br>
+      <b>Referência:</b> 1 kg = 2,20462 lb
+    </p>
+
+    <hr style="border:none;border-top:1px solid #e5e7eb;margin:18px 0;">
+
+    <h3>Tabela rápida (referência)</h3>
+    <p class="small">
+      1 kg = 2,2046 lb<br>
+      2 kg = 4,4092 lb<br>
+      5 kg = 11,0231 lb<br>
+      10 kg = 22,0462 lb<br>
+      20 kg = 44,0925 lb<br>
+      50 kg = 110,2311 lb<br>
+      100 kg = 220,4623 lb
+    </p>
+
+    <h3>Perguntas frequentes</h3>
+    <p class="small">
+      <b>Como converter kg para libra?</b><br>
+      Multiplique o valor em kg por 2,20462.
+    </p>
+    <p class="small">
+      <b>Qual a diferença entre kg e libra?</b><br>
+      kg é unidade do sistema métrico (usada no Brasil). Libra (lb) é comum nos EUA e em outros países.
+    </p>
+    <p class="small">
+      <b>Quer converter libra para kg?</b><br>
+      Use a conversão inversa: kg = lb ÷ 2,20462. (Podemos criar a página específica também.)
+    </p>
+
+  </div>
+
+</div>
+
+<footer>
+  © 2026 Utilix
+</footer>
+
+<script>
+function num(v){
+  if (!v) return NaN;
+  return parseFloat(String(v).trim().replace(',', '.'));
+}
+
+function fmt(n, casas=4){
+  return Number(n).toFixed(casas).replace('.', ',');
+}
+
+function converter(){
+  const kg = num(document.getElementById('kg').value);
+  const el = document.getElementById('resultado');
+
+  if (Number.isNaN(kg)){
+    el.textContent = "Digite um valor para ver a conversão.";
+    return;
+  }
+
+  const lb = kg * 2.20462;
+  el.innerHTML = `<b>${fmt(kg)} kg</b> = <b>${fmt(lb)} libras (lb)</b>`;
+}
+</script>
+
+</body>
+</html>
