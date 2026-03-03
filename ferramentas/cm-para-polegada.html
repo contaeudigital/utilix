@@ -1,1 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>cm para polegada (in) - Conversor Online Rápido | Utilix</title>
+  <meta name="description" content="Converta centímetros (cm) para polegadas (in) online. Conversão rápida e automática. Fórmula explicada e tabela de referência.">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
 
+<header>
+  <h1>Utilix</h1>
+  <p>Ferramentas Online Simples e Gratuitas</p>
+</header>
+
+<div class="container">
+
+  <div class="breadcrumb">
+    <a href="/">Home</a> › 
+    <a href="/ferramentas/conversor.html">Conversores</a>
+  </div>
+
+  <div class="card">
+    <h2 class="page-title">Conversor de cm para Polegada (in)</h2>
+
+    <p class="lead">
+      Converta centímetros para polegadas de forma rápida e automática.
+      Basta digitar o valor em cm.
+    </p>
+
+    <div class="form">
+      <input type="text" id="cm" placeholder="Digite o valor em cm (ex: 10,5)" inputmode="decimal" oninput="converter()">
+      <div class="result" id="resultado">Digite um valor para ver a conversão.</div>
+    </div>
+
+    <p class="small" style="margin-top:14px;">
+      <b>Fórmula:</b> polegada = cm ÷ 2,54<br>
+      1 polegada = 2,54 centímetros
+    </p>
+
+    <hr style="border:none;border-top:1px solid #e5e7eb;margin:18px 0;">
+
+    <h3>Tabela rápida (referência)</h3>
+    <p class="small">
+      1 cm = 0,3937 in<br>
+      5 cm = 1,9685 in<br>
+      10 cm = 3,9370 in<br>
+      50 cm = 19,6850 in<br>
+      100 cm = 39,3701 in
+    </p>
+
+    <h3>Perguntas frequentes</h3>
+    <p class="small">
+      <b>Como converter cm para polegada?</b><br>
+      Divida o valor em centímetros por 2,54.
+    </p>
+    <p class="small">
+      <b>Por que 1 polegada é 2,54 cm?</b><br>
+      Porque é o padrão internacional definido oficialmente.
+    </p>
+
+  </div>
+
+</div>
+
+<footer>
+  © 2026 Utilix
+</footer>
+
+<script>
+function num(v){
+  if (!v) return NaN;
+  return parseFloat(String(v).replace(',', '.'));
+}
+
+function fmt(n){
+  return n.toFixed(4).replace('.', ',');
+}
+
+function converter(){
+  const cm = num(document.getElementById('cm').value);
+  const el = document.getElementById('resultado');
+
+  if (Number.isNaN(cm)){
+    el.textContent = "Digite um valor para ver a conversão.";
+    return;
+  }
+
+  const inches = cm / 2.54;
+  el.innerHTML = `<b>${fmt(cm)} cm</b> = <b>${fmt(inches)} polegadas (in)</b>`;
+}
+</script>
+
+</body>
+</html>
