@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Litro para Galão (US e Imperial) - Conversor Online | Utilix</title>
+  <meta name="description" content="Converta litro para galão americano (US) e galão imperial (UK) online. Conversão rápida com explicação e tabela de referência.">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<header>
+  <h1>Utilix</h1>
+  <p>Ferramentas Online Simples e Gratuitas</p>
+</header>
+
+<div class="container">
+
+  <div class="breadcrumb">
+    <a href="/">Home</a> ›
+    <a href="/ferramentas/conversor.html">Conversores</a>
+  </div>
+
+  <div class="card">
+    <h2 class="page-title">Conversor de Litro para Galão</h2>
+
+    <p class="lead">
+      Converta litros para <b>galão americano (US)</b> ou <b>galão imperial (UK)</b>.
+      Basta digitar o valor em litros.
+    </p>
+
+    <div class="form">
+      <input type="text" id="litros" placeholder="Digite o valor em litros (ex: 10,5)" inputmode="decimal" oninput="converter()">
+
+      <div class="result" id="resultado">
+        Digite um valor para ver a conversão.
+      </div>
+    </div>
+
+    <p class="small" style="margin-top:14px;">
+      <b>Referência:</b><br>
+      1 galão US = 3,78541 litros<br>
+      1 galão imperial = 4,54609 litros
+    </p>
+
+    <hr style="border:none;border-top:1px solid #e5e7eb;margin:18px 0;">
+
+    <h3>Tabela rápida</h3>
+    <p class="small">
+      1 litro = 0,2642 galão US<br>
+      5 litros = 1,3209 galão US<br>
+      10 litros = 2,6417 galão US<br>
+      20 litros = 5,2834 galão US<br>
+      50 litros = 13,2086 galão US
+    </p>
+
+    <h3>Perguntas frequentes</h3>
+    <p class="small">
+      <b>Qual a diferença entre galão US e galão imperial?</b><br>
+      O galão americano (US) é menor que o galão imperial (UK).
+      1 galão US = 3,785 litros, enquanto o imperial = 4,546 litros.
+    </p>
+    <p class="small">
+      <b>Como converter litro para galão?</b><br>
+      Divida o valor em litros por 3,78541 para obter galão US.
+    </p>
+
+  </div>
+
+</div>
+
+<footer>
+  © 2026 Utilix
+</footer>
+
+<script>
+function num(v){
+  if (!v) return NaN;
+  return parseFloat(String(v).trim().replace(',', '.'));
+}
+
+function fmt(n, casas=4){
+  return Number(n).toFixed(casas).replace('.', ',');
+}
+
+function converter(){
+  const litros = num(document.getElementById('litros').value);
+  const el = document.getElementById('resultado');
+
+  if (Number.isNaN(litros)){
+    el.textContent = "Digite um valor para ver a conversão.";
+    return;
+  }
+
+  const galaoUS = litros / 3.78541;
+  const galaoUK = litros / 4.54609;
+
+  el.innerHTML = `
+    <div><b>${fmt(litros)} litros</b> = <b>${fmt(galaoUS)} galão US</b></div>
+    <div><b>${fmt(litros)} litros</b> = <b>${fmt(galaoUK)} galão imperial</b></div>
+  `;
+}
+</script>
+
+</body>
+</html>
